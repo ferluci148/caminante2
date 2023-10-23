@@ -97,7 +97,7 @@ function inicio() {
         });*/
         //enviaLL(lineaAutobus,datolatitud_longitud);
         leeDireccion(event.latLng);
-    });
+    }); 
 
     
 // Intervalo de detectar nueva posición
