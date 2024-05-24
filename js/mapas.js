@@ -164,7 +164,8 @@ function leeDireccion(latlng) {
 }
 
 function MuestraDireccion(latlng, direccion) {
-alert("MuestraDireccion  "+ latlng+","+ direccion)
+    //alert("MuestraDireccion  "+ latlng+","+ direccion)
+    document.getElementById("mll").innerText="LL:"+latlng
     //cLatitud.value= direccion;
     let listac=document.getElementById("listaCalles") ;
     let elemento=document.createElement("option")
