@@ -104,7 +104,7 @@ function inicio() {
   intervaloPosicion= setInterval(function(){
     
     navigator.geolocation.getCurrentPosition(pos => {
-    //    console.log( pos.coords.latitude+","+ pos.coords.latitude)
+        alert( pos.coords.latitude+","+ pos.coords.latitude)
         latitud = pos.coords.latitude;
         longitud = pos.coords.longitude;
    //    console.log("paso")
