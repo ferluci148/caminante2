@@ -13,9 +13,10 @@ grosorLinea.addEventListener("change", () => {
 }, false);
 
 document.getElementById("reiniciar").addEventListener("click", () => {
-    
-   latitud = 41.67097948393865;
-longitud = -3.6769259916763985;
+     latitud = 41.6904937015;
+     longitud = -3.5751611048;
+     // latitud = 41.67097948393865;
+     // longitud = -3.6769259916763985;
       listaCalles.innerHTML=""
     navigator.geolocation.getCurrentPosition(pos => {
         //  alert( pos.coords.latitude+","+ pos.coords.latitude)
