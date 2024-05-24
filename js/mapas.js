@@ -118,6 +118,7 @@ function inicio() {
 }
 function dibujaMarcador(latlng){
     let llatlng=latlng;
+    document.getElementById("mll").innerText="LL:"+latitud+","+longitud
 console.log("ll"+latlng+"  "+llatlng);
     icono = {
         url: "./imagenes/rav.jpg", // url
