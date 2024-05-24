@@ -55,7 +55,7 @@ function inicio() {
         delay(5)
         
         datolatitud_longitud = event.latLng.toString();
-        document.getElementById("mll").innerText="LL:"+datolatitud_longitud
+        
         console.log( datolatitud_longitud)
         // Hcemos como latitud longitu por defeccto las seleciona al crear el marcador
         // Por si cambiam os de zoom en el mapa
@@ -164,7 +164,7 @@ function leeDireccion(latlng) {
 }
 
 function MuestraDireccion(latlng, direccion) {
-//alert("MuestraDireccion  "+ latlng+","+ direccion)
+alert("MuestraDireccion  "+ latlng+","+ direccion)
     //cLatitud.value= direccion;
     let listac=document.getElementById("listaCalles") ;
     let elemento=document.createElement("option")
