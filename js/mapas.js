@@ -55,6 +55,7 @@ function inicio() {
         delay(5)
         
         datolatitud_longitud = event.latLng.toString();
+        document.getElementById("mll").innerText="LL:"+datolatitud_longitud
         console.log( datolatitud_longitud)
         // Hcemos como latitud longitu por defeccto las seleciona al crear el marcador
         // Por si cambiam os de zoom en el mapa
@@ -118,7 +119,7 @@ function inicio() {
 }
 function dibujaMarcador(latlng){
     let llatlng=latlng;
-    document.getElementById("mll").innerText="LL:"+latitud+","+longitud
+    
 console.log("ll"+latlng+"  "+llatlng);
     icono = {
         url: "./imagenes/rav.jpg", // url
