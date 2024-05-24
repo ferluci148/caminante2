@@ -104,7 +104,7 @@ function inicio() {
   intervaloPosicion= setInterval(function(){
     
     navigator.geolocation.getCurrentPosition(pos => {
-        alert( pos.coords.latitude+","+ pos.coords.latitude)
+        //alert( pos.coords.latitude+","+ pos.coords.latitude)
         latitud = pos.coords.latitude;
         longitud = pos.coords.longitude;
    //    console.log("paso")
@@ -112,7 +112,7 @@ function inicio() {
         let latlng= new google.maps.LatLng(latitud, longitud)
         dibujaMarcador(latlng) 
 });
-},18000); 
+},9000); //18000
 
 
 }
