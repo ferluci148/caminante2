@@ -1,8 +1,8 @@
 
 var map;
 var murallas = new Array();
-var latitud = 41.67097948393865;
-var longitud = -3.6769259916763985;
+var latitud = 41.6904937015;
+var longitud = -3.5751611048;
 let posMurallas = 0;
 let marker;
 let tzoom = parseInt(slider.value);
