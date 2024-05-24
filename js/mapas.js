@@ -108,7 +108,7 @@ function inicio() {
         latitud = pos.coords.latitude;
         longitud = pos.coords.longitude;
    //    console.log("paso")
-        mll.innetText=latitud+","+longitud
+        document.getElementById("mll").innerText="LL:"+latitud+","+longitud
         let latlng= new google.maps.LatLng(latitud, longitud)
         dibujaMarcador(latlng) 
 });
