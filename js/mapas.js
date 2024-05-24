@@ -112,7 +112,7 @@ function inicio() {
         let latlng= new google.maps.LatLng(latitud, longitud)
         dibujaMarcador(latlng) 
 });
-},9000); //18000
+},18000); //18000
 
 
 }
