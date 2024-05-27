@@ -24,9 +24,9 @@ var listaFincas= new Array();
 
 listaFincas[0]=""
 
-/*
+
 navigator.geolocation.getCurrentPosition(pos => {
-      alert( pos.coords.latitude+","+ pos.coords.latitude)
+     // alert( pos.coords.latitude+","+ pos.coords.latitude)
     latitud = pos.coords.latitude;
     longitud = pos.coords.longitude;
 
@@ -49,7 +49,7 @@ navigator.geolocation.getCurrentPosition(pos => {
 
     
 })
-*/
+
 // Paramos el proceso de ejecución de la página para que google map no de error
 // de satutación
  
