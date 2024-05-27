@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'> 
+        <meta HTTP-EQUIV=”Pragma” CONTENT=”no-cache”>
+        <meta HTTP-EQUIV=”Expires” CONTENT=”-1″>
+
+        <!-- <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.1.0/pure-min.css"> -->
+        <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+        <script type="text/javascript" src="obtenerDatosJson.js"></script> 
+        <title>Mapa localización e información Viñedos</title>
+        <style type="text/css">
+            html { height: 100% }
+            body { height: 100%; margin: 0px; padding: 0px }
+            .google-map{width:100%; height:100%;}
+        </style>
+        <script type="text/javascript">
+            var c=-1;  
+            var arrayParcelas = new Array();
+            function trazadorecintofinca(parcela,color)
+            {
+                var myLatlng = new google.maps.LatLng( parcela.latitud,parcela.longitud);
+                var posiciones ="[";
+                posiciones=posiciones +parcela.recinto;
+                posiciones=posiciones+"]"; 
+                //      alert("Recinto" +posiciones);
+                colortrazado="blue"
+                var route=eval(posiciones)
+                //    alert("Ruta" +route);
+                var path = new google.maps.Polyline(
+                {
+                    path: route,
+                    icons: [{repeat:"24px",icon:{path:"M 0,-2 0,2",
+                                strokeOpacity:1,
+                                strokeColor:color}}],
+                    strokeColor: "972BC1",
+                    strokeOpacity: 0.75,
+                    strokeWeight: 2,
+                    geodesic: true    //The polylines need to be declared as geodesic. Google Maps API takes care of the maths behind this.
+                });
+                path.setMap(map);
+            } 
+             
+            function dibujarMarca(parcela)
+            {
+                      
+                var myLatlng = new google.maps.LatLng( parcela.latitud,parcela.longitud);
+      
+                var marker = new google.maps.Marker({
+                    position: myLatlng, 
+                    map: map,
+                    title: parcela.descripcion,
+                    icon: icon
+                });
+                var infoWindow = new google.maps.InfoWindow();
+                google.maps.event.addListener(marker, 'click', function () {
+                    map.setCenter(new google.maps.LatLng(parcela.latitud,parcela.longitud));
+                    map.setZoom(16);
+                    
+                    /*
+                     * "id":"11",
+                    "descripcion": "Cascorral",
+                     "poligono":"523",
+                    "parcela":"626",
+                    "plantacion": "Tinto temparnillo",
+                    "superficie": "1h 40a",
+                     */
+                    
+                    var markerContent ="<p><b>"+ parcela.descripcion+"</b></p>"+
+                        "<p><i>Poligo/Pacela: </i>"+ parcela.poligono+"/"+parcela.parcela+"</p>"+
+                        "<p><i>Variedad: </i>"+ parcela.plantacion+"</p>"+
+                        "<p><i>Superficie: </i>"+ parcela.superficie+"</p>";
+                    infoWindow.setContent(markerContent);
+                    infoWindow.open(map, this);
+                }); 
+                    
+                trazadorecintofinca(parcela,"red");  
+            }
+            function fincaSeleccionada(parcelaS)
+            {
+               // alert(parcelaS+"--");
+                var infoWindow = new google.maps.InfoWindow();
+                //       angular.forEach( fincas, function  (parcela) {
+                for(i=0;i<=c;i++){
+                    parcela=arrayParcelas[i];
+                    if(parcela.descripcion==parcelaS){
+                        icon = new google.maps.MarkerImage("cepaS.png",new google.maps.Size(20, 25), new google.maps.Point(0, 0),new google.maps.Point(16, 32));
+                        map.setCenter(new google.maps.LatLng(parcela.latitud,parcela.longitud));
+                        map.setZoom(16);
+                        dibujarMarca(parcela,"cyan");
+        
+                        trazadorecintofinca(parcela,"cyan");}
+                     
+                    
+                }
+            }
+        </script>
+        <script type="text/javascript" >
+            var fincas="";
+            /*    fincas = [
+                {
+                    "id": "1",
+                    "descripcion": "Las Calabazas",
+                    "poligono":"538",
+                    "parcela":"6704",
+                    "plantacion": "Tinto temparnillo",
+                    "superficie": "44a",
+                    "cepas":"800",
+                    "edad":"18",
+                    "latitud":"41.67913834361563",
+                    "longitud":"-3.5817146301269",
+                    "recinto":"new google.maps.LatLng(41.67765188586432, -3.5826855897903442),new google.maps.LatLng(41.6791423501939, -3.581693172454834),new google.maps.LatLng(41.679154369927204, -3.5819238424301147),new google.maps.LatLng(41.6777400325646, -3.582921624183655)"
+                },
+                {
+    
+ 
+                    "id": "2",  
+                    "descripcion": "Tia Feliciana",
+                     "poligono":"538",
+                    "parcela":"16441",
+                    "plantacion": "Tinto temparnillo",
+                    "superficie": "50a",
+                    "cepas":"1000",
+                    "edad":"18",
+                    "latitud":"41.679514960882756",
+                    "longitud":"-3.5768544673919677",
+                    "recinto":" new google.maps.LatLng(41.679226488279944, -3.576875925064087), new google.maps.LatLng(41.681886797701594, -3.5767364501953125), new google.maps.LatLng(41.68191083614077, -3.576875925064087), new google.maps.LatLng(41.67923450142526, -3.5770046710968018), new google.maps.LatLng(41.679226488279944, -3.576875925064087)"
+                },
+                {
+                    "id":"3",
+                    "descripcion": "Botijo",
+                     "poligono":"538",
+                    "parcela":"16636",
+                    "plantacion": "Tinto temparnillo",
+                    "superficie": "18a",
+                    "cepas":"400",
+                    "edad":"30",
+                    "latitud":"41.67582882476762",
+                    "longitud":"-3.5828572511672",
+                    "recinto":"new google.maps.LatLng(41.67582882476762, -3.5828572511672974),new google.maps.LatLng(41.67690263403767, -3.581993579864502),new google.maps.LatLng(41.67682650635855, -3.5819023847579956),new google.maps.LatLng(41.675748689029064, -3.5827231407165527)"
+                } ,
+                {
+                    "id":"4",
+                    "descripcion": "Natalia",
+                     "poligono":"538",
+                    "parcela":"6673",
+                    "plantacion": "Tinto temparnillo",
+                    "superficie": "7a",
+                    "cepas":"200",
+                    "edad":"30",
+                    "latitud":"41.675844851903335",
+                    "longitud":"-3.57942402362823",
+                    "recinto":"new google.maps.LatLng(41.675844851903335, -3.579424023628235),new google.maps.LatLng(41.67570862112238, -3.5785388946533203),new google.maps.LatLng(41.67560444444827, -3.5786139965057373),new google.maps.LatLng(41.675756702607416, -3.5795044898986816),new google.maps.LatLng(41.675844851903335, -3.579424023628235)"
+                } ,
+                {
+                    "id":"5",
+                    "descripcion": "Chulo",
+                     "poligono":"538",
+                    "parcela":"6661",
+                    "plantacion": "Tinto temparnillo",
+                    "superficie": "32a",
+                    "cepas":"600",
+                    "edad":"30",
+                    "latitud":"41.67519975653752",
+                    "longitud":" -3.5808938741683",
+                    "recinto":"new google.maps.LatLng(41.67519975653752, -3.580893874168396),new google.maps.LatLng(41.675131640500396, -3.5807275772094727),new google.maps.LatLng(41.676610142989475, -3.5795098543167114),new google.maps.LatLng(41.67668226419332, -3.5796386003494263),new google.maps.LatLng(41.67519975653752, -3.580893874168396)"
+                } ,
+                {
+                    "id":"6",
+                    "descripcion": "Alejandro",
+                     "poligono":"538",
+                    "parcela":"6508/6561",
+                    "plantacion": "Tinto temparnillo",
+                    "superficie": "13a",
+                    "cepas":"600",
+                    "edad":"30/12",
+                    "latitud":"41.681826701564354",
+                    "longitud":" -3.58143568038940",
+                    "recinto":"new google.maps.LatLng(41.681826701564354, -3.5814356803894043),new google.maps.LatLng(41.68171051553992, -3.5814356803894043),new google.maps.LatLng(41.68123375000158, -3.5807543992996216),new google.maps.LatLng(41.68164240639355, -3.5802286863327026),new google.maps.LatLng(41.68187077207048, -3.580314517021179),new google.maps.LatLng(41.68201500260676, -3.5804110765457153),new google.maps.LatLng(41.681662438502904, -3.580668568611145),new google.maps.LatLng(41.68163038712496, -3.5807275772094727),new google.maps.LatLng(41.68179064385508, -3.581167459487915),new google.maps.LatLng(41.681826701564354, -3.5813337564468384),new google.maps.LatLng(41.681826701564354, -3.5814356803894043)"
+                }  ,
+                {
+                    "id":"7",
+                    "descripcion": "Cañada Baltasar",
+                     "poligono":"538",
+                    "parcela":"16555",
+                    "plantacion": "Tinto temparnillo",
+                    "superficie": "26a",
+                    "cepas":"600",
+                    "edad":"30/12",
+                    "latitud":"41.682583908791834",
+                    "longitud":"-3.58318448066711",
+                    "recinto":"new google.maps.LatLng(41.682583908791834, -3.5831844806671143),new google.maps.LatLng(41.68240362216493, -3.5829484462738037),new google.maps.LatLng(41.6831327783017, -3.5818004608154297),new google.maps.LatLng(41.683192873219156, -3.5818326473236084),new google.maps.LatLng(41.683020600972306, -3.582170605659485),new google.maps.LatLng(41.68288839172589, -3.5825514793395996),new google.maps.LatLng(41.682583908791834, -3.5831844806671143)"
+                } ,
+                {
+                    "id":"8",
+                    "descripcion": "El Hoyo",
+                     "poligono":"528",
+                    "parcela":"859",
+                    "plantacion": "Tinto temparnillo",
+                    "superficie": "2h 21 a",
+                    "cepas":"6000",
+                    "edad":"20",
+                    "latitud":"41.69996116816865",
+                    "longitud":"-3.5857272148132",
+                    "recinto":"new google.maps.LatLng(41.69996116816865, -3.5857272148132324),new google.maps.LatLng(41.699816977864145, -3.58479380607605),new google.maps.LatLng(41.69754994335504, -3.584718704223633),new google.maps.LatLng(41.697373704109054, -3.585684299468994),new google.maps.LatLng(41.69996116816865, -3.5857272148132324)"
+                } ,
+                {
+                    "id":"9",
+                    "descripcion": "Carrahontoria",
+                     "poligono":"521",
+                    "parcela":"564",
+                    "plantacion": "Tinto temparnillo",
+                    "superficie": "2h 28 a",
+                    "cepas":"6000",
+                    "edad":"20",
+                    "latitud":"41.70181158171184",
+                    "longitud":"-3.5905981063842",
+                    "recinto":"new google.maps.LatLng(41.70181158171184, -3.5905981063842773),new google.maps.LatLng(41.70229219989489, -3.5897719860076904),new google.maps.LatLng(41.7038381640215, -3.5916495323181152),new google.maps.LatLng(41.70270072252606, -3.592379093170166),new google.maps.LatLng(41.70181158171184, -3.5905981063842773)"
+                } ,
+                {
+                    "id":"10",
+                    "descripcion": "Cabezas",
+                     "poligono":"522",
+                    "parcela":"599",
+                    "plantacion": "Tinto temparnillo",
+                    "superficie": "1h 45a",
+                    "cepas":"4000",
+                    "edad":"20",
+                    "latitud":"41.70195576754394",
+                    "longitud":"-3.6040198802948",
+                    "recinto":"new google.maps.LatLng(41.70195576754394, -3.6040198802948),new google.maps.LatLng(41.70351776000208, -3.604738712310791),new google.maps.LatLng(41.70308521204329, -3.605661392211914),new google.maps.LatLng(41.702860926770974, -3.605586290359497),new google.maps.LatLng(41.70262863048561, -3.605393171310425),new google.maps.LatLng(41.702348271782235, -3.605393171310425),new google.maps.LatLng(41.70197178817199, -3.605167865753174),new google.maps.LatLng(41.70190770563581, -3.6047279834747314),new google.maps.LatLng(41.70185163336428, -3.6044061183929443),new google.maps.LatLng(41.70195576754394, -3.6040198802948)"
+                } ,
+                {
+                    "id":"11",
+                    "descripcion": "Cascorral",
+                     "poligono":"523",
+                    "parcela":"626",
+                    "plantacion": "Tinto temparnillo",
+                    "superficie": "1h 40a",
+                    "cepas":"4000",
+                    "edad":"20",
+                    "latitud":"41.699224192104595",
+                    "longitud":"-3.60842943191528",
+                    "recinto":"new google.maps.LatLng(41.699224192104595, -3.608429431915283),new google.maps.LatLng(41.699736871999754, -3.608182668685913),new google.maps.LatLng(41.6998089672822, -3.6078929901123047),new google.maps.LatLng(41.69948053256307, -3.6064445972442627),new google.maps.LatLng(41.698735540275266, -3.606584072113037),new google.maps.LatLng(41.698831668797354, -3.607689142227173),new google.maps.LatLng(41.69913607483603, -3.6078929901123047),new google.maps.LatLng(41.699224192104595, -3.608429431915283)"
+                } 
+            
+  ];  */
+    
+            //Defininos la variable global map en la que instanciaremos el objeto google maps            
+            var map;
+            var mapApp = angular.module('mapComponentsApp', []);
+            // Aquí declaramos mapComponentsApp como modulo y lo guardamos en una variable
+            //mapComponentsApp es en este caso el body y todos los objetos(DOM) que contiene<body ng-app="mapComponentsApp" >
+            // Esta variable hace referencia a to el body . también se emplea para crear nuestras propias directivas
+            var icon = new google.maps.MarkerImage("cepa.png",new google.maps.Size(20, 25), new google.maps.Point(0, 0),new google.maps.Point(16, 32));
+            // Creamos un icon para los marcadores de las parcelas
+            // 
+            // Directiva angularjs que carga el mapa en un div
+            mapApp.directive('cargaMapas', function () {
+                //  alert("Mapa");
+                return function (scope, elem, attrs) {
+                    var mapOptions,
+                    latitude = attrs.latitude,
+                    longitude = attrs.longitude ;
+
+                    latitude = latitude && parseFloat(latitude, 10) || 41.70936488204244;
+                    longitude = longitude && parseFloat(longitude, 10) || -3.587658405303955;
+                    // Opciones del mapa de google maps
+                    mapOptions = {
+                        zoom: 13,
+                        center: new google.maps.LatLng(latitude, longitude),
+                        mapTypeId: google.maps.MapTypeId.HYBRID
+                    };
+                    // Creamos el mapa con las opciones   
+                    map = new google.maps.Map(elem[0], mapOptions);
+                    // Crear marker en el mapa con el centro del pueblo Quemada(Burgos)
+                    var myLatlng = new google.maps.LatLng( 41.70097049124753, -3.5750412940979004);
+                    var marker = new google.maps.Marker({
+                        position: myLatlng, 
+                        map: map,
+                        title:"Quemada"
+                    });
+                };
+                map.setCenter(new google.maps.LatLng(41.70097049124753, -3.5750412940979004));
+            }
+    
+        ); 
+            // Directiva que vamos a utilizar para crear un marcador por cada finca a visualizar en el mapa
+            // La información de las fincas las vamos a obtener desde un fichero json
+       
+            mapApp.directive('crearMarca', function () {
+          
+                return function (scope, elem, attrs) {
+                    
+                    angular.forEach(   scope.fincas, function  (parcela) {
+                        c++;
+                        arrayParcelas[c]=parcela;
+                        dibujarMarca(parcela);
+        
+                        trazadorecintofinca(parcela);
+                   
+                    });
+               
+                }
+            }); 
+
+            /*      mapApp.directive('trazaRecinto', function () {
+            
+             //   alert("trazaRecinto" );
+                return  function tr(scope, elem, attrs) {
+                    var myLatlng = new google.maps.LatLng( attrs.latitude,attrs.longitude);
+      
+           
+        
+                    var posiciones ="[";
+              
+             
+
+                    posiciones=posiciones +attrs.recinto;
+     
+
+             
+
+                    posiciones=posiciones+"]"; 
+              //      alert("Recinto" +posiciones);
+            
+                    colortrazado="blue"
+            
+           
+                    //   var polygon  = "new GPolyline("+posiciones+",colortrazado, 2, 0.7, '#996633', 0.4)";
+                    //  map.addOverlay(eval(polygon));
+                    var route=eval(posiciones)
+               //     alert("Ruta" +route);
+                    var path = new google.maps.Polyline(
+                    {
+                        path: route,
+                        icons: [{repeat:"24px",icon:{path:"M 0,-2 0,2",
+                                    strokeOpacity:1,
+                                    strokeColor:"red"}}],
+                        strokeColor: "972BC1",
+                        strokeOpacity: 0.75,
+                        strokeWeight: 2,
+                        geodesic: true    //The polylines need to be declared as geodesic. Google Maps API takes care of the maths behind this.
+                    });
+                    path.setMap(map);
+                }
+             
+            }
+        ); */
+            mapApp.directive('fecha', function(){
+                return{
+                    restrict: 'E',
+                    link: function(scope,element) {
+                        //declaramos un objeto tipo date...
+                        var fecha   = new Date();
+                        var f=   "  Fecha :"+[fecha.getDate(), fecha.getMonth()+1, fecha.getFullYear()].join('/');
+                        // fecha.toString();
+             
+                        element.text(f);
+                    }
+                }
+                    
+            })
+
+         
+        </script>
+    </head>
+    <body ng-app="mapComponentsApp" >
+
+
+
+        <div ng-controller="ControlFincas">  
+            Viticultor <fecha style="margin-left:200px; "></fecha>
+            <b style="margin-left:200px;">Viñedo</b>
+            <select ng-controller="ControlFincas"  style="margin-left:50px" onclick="fincaSeleccionada(this.options[this.selectedIndex].value);
+                    ">
+                <option  ng-repeat="data in fincas" value="{{data.descripcion}}">{{data.descripcion}}</option>
+            </select>
+        </div>
+ 
+        <!--<div class="google-map"  traza-recinto="" carga-mapas=""  crear-marca="" latitude="41.679514960882756" longitude="-3.5768544673919677" parcela="Tia Feliciana" recinto=" new google.maps.LatLng(41.679226488279944, -3.576875925064087), new google.maps.LatLng(41.681886797701594, -3.5767364501953125), new google.maps.LatLng(41.68191083614077, -3.576875925064087), new google.maps.LatLng(41.67923450142526, -3.5770046710968018), new google.maps.LatLng(41.679226488279944, -3.576875925064087)">-->
+        <div ng-controller="ControlFincas" class="google-map"   crear-marca="" carga-mapas="">
+
+        </div> 
+
+        <input id="df" type="text" ng-controller="ControlFincas" value="{{fincas}}"/>
+    </body>
+</html>
+
+
