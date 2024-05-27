@@ -1,5 +1,5 @@
- function ControlFincas($scope) {   
-            $scope.fincas = [
+
+            fincas = [
                 {
                     "id": "1",
                     "descripcion": "La Presa",
@@ -123,7 +123,7 @@
                 {
                     "id":"10",
                     "descripcion": "Bajamontero",
-                     "poligono":"503",
+                    "poligono":"503",
                     "parcela":"18",
                     "plantacion": "Chopos",
                     "superficie": "1h 33a",
@@ -132,7 +132,19 @@
                     "latitud":"41.72084932414073",
                     "longitud":"-3.5651063919067383",
                     "recinto":"new google.maps.LatLng(41.72084932414073, -3.5651063919067383),new google.maps.LatLng(41.72064111681767, -3.5633039474487305),new google.maps.LatLng(41.719728199822235, -3.5637545585632324),new google.maps.LatLng(41.719680151200066, -3.564140796661377),new google.maps.LatLng(41.71960007008327, -3.564333915710449),new google.maps.LatLng(41.720064539171524, -3.565213680267334),new google.maps.LatLng(41.72084932414073, -3.5651063919067383)"
-                }  
-            
+                } ,
+                {
+                    "id": "11",
+                    "descripcion": "La Calabaza",
+                    "poligono":"538",
+                    "parcela":"6704",
+                    "plantacion": "Tinto temparnillo",
+                    "superficie": "44a",
+                    "cepas":"800",
+                    "edad":"18",
+                    "latitud":"41.67913834361563",
+                    "longitud":"-3.5817146301269",
+                    "recinto":"new google.maps.LatLng(41.67765188586432, -3.5826855897903442),new google.maps.LatLng(41.6791423501939, -3.581693172454834),new google.maps.LatLng(41.679154369927204, -3.5819238424301147),new google.maps.LatLng(41.6777400325646, -3.582921624183655)"
+                }
   ];
-         };
+        

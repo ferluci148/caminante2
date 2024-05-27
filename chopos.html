@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Location on Google Maps</title>
+  <script type="text/javascript" src="choposJson.js"></script> 
+  <script>
+    (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+      key: "AIzaSyA_5nn8cCIMvXkDoOXa4e68JhT9tDfvTlM",
+      v: "weekly",
+      // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
+      // Add other bootstrap parameters as needed, using camel case.
+    });
+  </script>
+</head>
+<body>
+    <div >  
+        Viticultor <fecha style="margin-left:200px; "></fecha>
+        <b style="margin-left:200px;">Fincas</b>
+        <select  id="cajaFincas" style="margin-left:50px" onclick="fincaSeleccionada(this.options[this.selectedIndex].value);">
+            <option value="">Selecciona Finca</option>
+        </select>
+    </div>
+  <div id="map" style="width: 100%;height: 700px;background-color: bisque;"></div>></div> 
+  
+  <script>
+/// Cargar datos fincas
+/*
+   {
+                    "id": "1",
+                    "descripcion": "La Calabaza",
+                    "poligono":"538",
+                    "parcela":"6704",
+                    "plantacion": "Tinto temparnillo",
+                    "superficie": "44a",
+                    "cepas":"800",
+                    "edad":"18",
+                    "latitud":"41.67913834361563",
+                    "longitud":"-3.5817146301269",
+                    "recinto":"new google.maps.LatLng(41.67765188586432, -3.5826855897903442),new google.maps.LatLng(41.6791423501939, -3.581693172454834),new google.maps.LatLng(41.679154369927204, -3.5819238424301147),new google.maps.LatLng(41.6777400325646, -3.582921624183655)"
+                },
+*/
+numeroFincas=0;
+function CartgarDatosFincas()
+{
+    for (i=0;i <fincas.length;i++)
+    {
+        opcion=document.createElement("option")
+        opcion.text =fincas[i].descripcion;
+        opcion.value=i
+        cajaFincas.appendChild(opcion)
+    }
+}
+CartgarDatosFincas()
+//// Visualizar finca selecciomnada 
+function fincaSeleccionada(NumeroParcela)
+            {
+                alert(NumeroParcela)
+               // alert(parcelaS+"--");
+                var infoWindow = new google.maps.InfoWindow();
+                //       angular.forEach( fincas, function  (parcela) {
+                 
+                    parcela=fincas[NumeroParcela];
+                    //if(parcela.descripcion==parcelaS){
+                        icon = new google.maps.MarkerImage("chopo2.png",new google.maps.Size(20, 25), new google.maps.Point(0, 0),new google.maps.Point(16, 32));
+                        map.setCenter(new google.maps.LatLng(parcela.latitud,parcela.longitud));
+                        map.setZoom(16);
+                        dibujarMarca(parcela,"cyan");
+        
+                        trazadorecintofinca(parcela,"cyan");
+                    //}
+                     
+                    
+                 
+            }
+ function trazadorecintofinca(parcela,color)
+            {
+                var myLatlng = new google.maps.LatLng( parcela.latitud,parcela.longitud);
+                var posiciones ="[";
+                posiciones=posiciones +parcela.recinto;
+                posiciones=posiciones+"]"; 
+                //      alert("Recinto" +posiciones);
+                colortrazado="blue"
+                var route=eval(posiciones)
+                //    alert("Ruta" +route);
+                var path = new google.maps.Polyline(
+                {
+                    path: route,
+                    icons: [{repeat:"24px",icon:{path:"M 0,-2 0,2",
+                                strokeOpacity:1,
+                                strokeColor:color}}],
+                    strokeColor: "972BC1",
+                    strokeOpacity: 0.75,
+                    strokeWeight: 2,
+                    geodesic: true    //The polylines need to be declared as geodesic. Google Maps API takes care of the maths behind this.
+                });
+                path.setMap(map);
+            } 
+
+            function dibujarMarca(parcela)
+            {
+                      
+                var myLatlng = new google.maps.LatLng( parcela.latitud,parcela.longitud);
+      
+                var marker = new google.maps.Marker({
+                    position: myLatlng, 
+                    map: map,
+                    title: parcela.descripcion,
+                    icon: icon
+                });
+                var infoWindow = new google.maps.InfoWindow();
+                google.maps.event.addListener(marker, 'click', function () {
+                    map.setCenter(new google.maps.LatLng(parcela.latitud,parcela.longitud));
+                    map.setZoom(16);
+                    
+                    /*
+                     * "id":"11",
+                    "descripcion": "Cascorral",
+                     "poligono":"523",
+                    "parcela":"626",
+                    "plantacion": "Tinto temparnillo",
+                    "superficie": "1h 40a",
+                     */
+                    
+                    var markerContent ="<p><b>"+ parcela.descripcion+"</b></p>"+
+                        "<p><i>Poligo/Pacela: </i>"+ parcela.poligono+"/"+parcela.parcela+"</p>"+
+                        "<p><i>Variedad: </i>"+ parcela.plantacion+"</p>"+
+                        "<p><i>Superficie: </i>"+ parcela.superficie+"</p>";
+                    infoWindow.setContent(markerContent);
+                    infoWindow.open(map, this);
+                }); 
+                    
+                trazadorecintofinca(parcela,"red");  
+            }
+            function fincaSeleccionada(parcelaS)
+            {
+               // alert(parcelaS+"--");
+                var infoWindow = new google.maps.InfoWindow();
+                //       angular.forEach( fincas, function  (parcela) {
+               // for(i=0;i<=f;i++){
+                    parcela=fincas[parcelaS];
+                   // if(parcela.descripcion==parcelaS){
+                        icon = new google.maps.MarkerImage("chopo2.png",new google.maps.Size(20, 25), new google.maps.Point(0, 0),new google.maps.Point(16, 32));
+                        map.setCenter(new google.maps.LatLng(parcela.latitud,parcela.longitud));
+                        map.setZoom(16);
+                        dibujarMarca(parcela,"cyan");
+        
+                        trazadorecintofinca(parcela,"cyan");}
+                     
+                    
+               // }
+            //}
+
+
+
+
+        var latitud = 41.7285047310
+        var longitud =-3.5601366553
+          latitud = 41.6904937015;
+             longitud = -3.5751611048;
+        let map;
+
+            async function initMap() {
+            const { Map } = await google.maps.importLibrary("maps");
+
+            map = new Map(document.getElementById("map"), {
+                center: { lat: latitud, lng: longitud},
+                zoom: 8,
+            });
+
+            const marker = new google.maps.Marker({
+            position: { lat: latitud, lng: longitud },
+            map: map,
+            title: 'Mi ubicación actual' // Marker label
+            });
+
+            map.addListener("click", () => {
+                  
+                navigator.geolocation.getCurrentPosition(function(position) {
+                latitud = position.coords.latitude;
+                longitud= position.coords.longitude;
+
+
+            // Create a marker to represent the user's location
+                const marker = new google.maps.Marker({
+                position: { lat: latitud, lng: longitud },
+                icon: icono,
+                map: map,
+                title: 'Mi ubicación actual' // Marker label
+            });
+        });
+        
+
+
+            });
+
+
+
+            }
+
+            initMap();
+
+      
+        // Get the user's current location
+
+        icono = {
+        url: "chopo2.png", // url
+         
+             };
+     
+       
+         
+
+        
+  </script>
+</body>
+</html>
