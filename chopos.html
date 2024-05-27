@@ -68,7 +68,7 @@ function fincaSeleccionada(NumeroParcela)
                  
                     parcela=fincas[NumeroParcela];
                     //if(parcela.descripcion==parcelaS){
-                        icon = new google.maps.MarkerImage("chopo2.png",new google.maps.Size(20, 25), new google.maps.Point(0, 0),new google.maps.Point(16, 32));
+                    //    icon = new google.maps.MarkerImage("chopo2.png",new google.maps.Size(20, 25), new google.maps.Point(0, 0),new google.maps.Point(16, 32));
                         map.setCenter(new google.maps.LatLng(parcela.latitud,parcela.longitud));
                         map.setZoom(16);
                         dibujarMarca(parcela,"cyan");
@@ -179,17 +179,25 @@ function fincaSeleccionada(NumeroParcela)
             map: map,
             title: 'Mi ubicación actual' // Marker label
             });
-
+// Geolocalizacion
             map.addListener("click", () => {
+                let tzoom = 16;
+                
                   
+                icono = {
+                        url: "bandera.png", // url
+                        scaledSize: new google.maps.Size(tzoom, tzoom), // scaled size
+                        origin: new google.maps.Point(0, 0), // origin
+                        anchor: new google.maps.Point(0, 0) // anchor
+                        };        
                 navigator.geolocation.getCurrentPosition(function(position) {
-                latitud = position.coords.latitude;
-                longitud= position.coords.longitude;
+                let latitudg = position.coords.latitude;
+                let longitudg= position.coords.longitude;
 
 
             // Create a marker to represent the user's location
                 const marker = new google.maps.Marker({
-                position: { lat: latitud, lng: longitud },
+                position: { lat: latitudg, lng: longitudg },
                 icon: icono,
                 map: map,
                 title: 'Mi ubicación actual' // Marker label
@@ -209,10 +217,7 @@ function fincaSeleccionada(NumeroParcela)
       
         // Get the user's current location
 
-        icono = {
-        url: "chopo2.png", // url
-         
-             };
+      
      
        
          
