@@ -3,6 +3,13 @@ var map;
 var murallas = new Array();
 var latitud = 41.6904937015;
 var longitud = -3.5751611048;
+ 
+
+var latitud = 41.7285047310
+var longitud =-3.5601366553
+
+
+
 let posMurallas = 0;
 let marker;
 let tzoom = parseInt(slider.value);
@@ -12,20 +19,39 @@ let intervaloPosicion=null;
 let colortrazado= "#12D997"
 colorTrazado.value=colortrazado;
 //Obtiene la localización actual del sipositivo en latitud, longitud
+
+var listaFincas= new Array();
+
+listaFincas[0]=""
+
+
 navigator.geolocation.getCurrentPosition(pos => {
     //  alert( pos.coords.latitude+","+ pos.coords.latitude)
     latitud = pos.coords.latitude;
     longitud = pos.coords.longitude;
+
+    icono = {
+        url: "./imagenes/rav.jpg", // url
+        scaledSize: new google.maps.Size(tzoom, tzoom), // scaled size
+        origin: new google.maps.Point(0, 0), // origin
+        anchor: new google.maps.Point(0, 0) // anchor
+    };
+
+
+    marker = new google.maps.Marker({
+        position: event.latLng,
+        icon: icono,
+        map: map,
+        nombre: 'Pepino'
+    });
+
+    map.setCenter(event.latLng);
+
     
 }) 
 // Paramos el proceso de ejecución de la página para que google map no de error
 // de satutación
-function delay(n) {
-    console.log(n);
-    return new Promise(function (resolve) {
-        setTimeout(resolve, n);
-    });
-}
+ 
 
 let icono; let iconoRojo; let iconoVerde; let iconoAmbar;
 
@@ -52,10 +78,10 @@ function inicio() {
 
     // Añade un marcador al mapa
     google.maps.event.addListener(map, 'click', function (event) {
-        delay(5)
+     
         
         datolatitud_longitud = event.latLng.toString();
-        
+        document.getElementById("mll").innerText="LL:"+datolatitud_longitud
         console.log( datolatitud_longitud)
         // Hcemos como latitud longitu por defeccto las seleciona al crear el marcador
         // Por si cambiam os de zoom en el mapa
@@ -85,7 +111,7 @@ function inicio() {
         });
 
         map.setCenter(event.latLng);
-
+     
 
       /*  google.maps.event.addListener(marker, 'click', function () {
 
@@ -101,26 +127,13 @@ function inicio() {
     }); 
 
     
-// Intervalo de detectar nueva posición
-  intervaloPosicion= setInterval(function(){
-    
-    navigator.geolocation.getCurrentPosition(pos => {
-       
-        latitud = pos.coords.latitude;
-        longitud = pos.coords.longitude;
-   //    console.log("paso")
-        document.getElementById("mll").innerText="LL:"+latitud+","+longitud
-        let latlng= new google.maps.LatLng(latitud, longitud)
-        dibujaMarcador(latlng) 
-});
-},18000); //18000
 
 
 }
 function dibujaMarcador(latlng){
     let llatlng=latlng;
     
-console.log("ll"+latlng+"  "+llatlng);
+
     icono = {
         url: "./imagenes/rav.jpg", // url
         scaledSize: new google.maps.Size(tzoom, tzoom), // scaled size
