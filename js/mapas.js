@@ -26,7 +26,7 @@ listaFincas[0]=""
 
 
 navigator.geolocation.getCurrentPosition(pos => {
-    //  alert( pos.coords.latitude+","+ pos.coords.latitude)
+      alert( pos.coords.latitude+","+ pos.coords.latitude)
     latitud = pos.coords.latitude;
     longitud = pos.coords.longitude;
 
