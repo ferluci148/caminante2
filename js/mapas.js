@@ -39,13 +39,13 @@ navigator.geolocation.getCurrentPosition(pos => {
 
 
     marker = new google.maps.Marker({
-        position: event.latLng,
+        position: new google.maps.LatLng(latitud, longitud),
         icon: icono,
         map: map,
         nombre: 'Pepino'
     });
 
-    map.setCenter(event.latLng);
+    map.setCenter(new google.maps.LatLng(latitud, longitud));
 
     
 }) 
