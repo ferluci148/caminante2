@@ -145,6 +145,72 @@
                     "latitud":"41.67913834361563",
                     "longitud":"-3.5817146301269",
                     "recinto":"new google.maps.LatLng(41.67765188586432, -3.5826855897903442),new google.maps.LatLng(41.6791423501939, -3.581693172454834),new google.maps.LatLng(41.679154369927204, -3.5819238424301147),new google.maps.LatLng(41.6777400325646, -3.582921624183655)"
-                }
+                },
+                {
+                    "id": "12",
+                    "descripcion": "Quiñones 5260",
+                    "poligono":"501",
+                    "parcela":"5260",
+                    "plantacion": "Monte",
+                    "superficie": "88ca",
+                    "cepas":"-----",
+                    "edad":"---",                     
+                    "latitud":"41.7285100269",
+                    "longitud":"-3.5601320435 ",
+                    "recinto":"new google.maps.LatLng(41.7285100269, -3.5601320435 ) ,new google.maps.LatLng(41.7284774672, -3.5601036783 )  ,new google.maps.LatLng(41.7292230816,-3.5581246591),new google.maps.LatLng(41.7292621528 ,-3.5581464785 ) ,new google.maps.LatLng(41.7285100269, -3.5601320435 ) "
+                            },
+                {
+                    "id": "13",
+                    "descripcion": "Quiñones 5252",
+                    "poligono":"501",
+                    "parcela":"5252",
+                    "plantacion": "Monte",
+                    "superficie": "88ca",
+                    "cepas":"-----",
+                    "edad":"---",                     
+                    "latitud":"41.7281553056",
+                    "longitud":"-3.5597829320",
+                    "recinto":"new google.maps.LatLng(41.7281553056 , -3.5597829320 ) ,new google.maps.LatLng(41.7281237878 ,-3.5597423793 )  ,new google.maps.LatLng(41.7287869205,-3.5578195171),new google.maps.LatLng(41.7288234808 , -3.5578431727) ,new google.maps.LatLng(41.7281553056 ,-3.5597829320) "
+                            },
+                {
+                    "id": "14",
+                    "descripcion": "Quiñones 5250",
+                    "poligono":"501",
+                    "parcela":"5250",
+                    "plantacion": "Monte",
+                    "superficie": "88ca",
+                    "cepas":"-----",
+                    "edad":"---",                     
+                    "latitud":"41.7280368483",
+                    "longitud":"-3.5596388506",
+                    "recinto":"new google.maps.LatLng(41.7280368483,-3.5596388506 ) ,new google.maps.LatLng(41.7279183408,-3.5595307208 ),new google.maps.LatLng(41.7285638257,-3.5576788151)  ,new google.maps.LatLng(41.7286898963,-3.5577497819) ,new google.maps.LatLng(41.7280368483,-3.5596388506) "
+                            },
+                {
+                    "id": "15",
+                    "descripcion": "Quiñones 5231",
+                    "poligono":"501",
+                    "parcela":"5231",
+                    "plantacion": "Monte",
+                    "superficie": "88ca",
+                    "cepas":"-----",
+                    "edad":"---",                     
+                    "latitud":"41.7262264334 ",
+                    "longitud":"-3.5586486948",
+                    "recinto":"new google.maps.LatLng(41.7262264334, -3.5586486948) ,new google.maps.LatLng(41.7261407022, -3.5586385567)  ,new google.maps.LatLng(41.7267004745,-3.5571719094),new google.maps.LatLng(41.7267685546,-3.5572192206) ,new google.maps.LatLng(41.7262264334,-3.5586486948) "
+                            },
+                {
+                    "id": "16",
+                    "descripcion": "Rio la Tejera",
+                    "poligono":"529",
+                    "parcela":"10486",
+                    "plantacion": "Monte",
+                    "superficie": "88ca",
+                    "cepas":"-----",
+                    "edad":"---",                     
+                    "latitud":"41.6905123660",
+                    "longitud":"-3.5751508127",
+                    "recinto":"new google.maps.LatLng(41.6905123660, -3.5751508127) ,new google.maps.LatLng(41.6906841229, -3.5748352958)  ,new google.maps.LatLng(41.6914251257,-3.5747629898) ,new google.maps.LatLng(41.6911061520,-3.5750193473),new google.maps.LatLng(41.6907675475,-3.5751442395),new google.maps.LatLng(41.6905123660,-3.5751508127) "
+                            }
+
   ];
-        
+ 

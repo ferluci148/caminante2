@@ -189,10 +189,15 @@ function fincaSeleccionada(NumeroParcela)
                         scaledSize: new google.maps.Size(tzoom, tzoom), // scaled size
                         origin: new google.maps.Point(0, 0), // origin
                         anchor: new google.maps.Point(0, 0) // anchor
-                        };        
+                        };      
+    
+                const options = {
+                            enableHighAccuracy: true 
+                        };  
                 navigator.geolocation.getCurrentPosition(function(position) {
                 let latitudg = position.coords.latitude;
                 let longitudg= position.coords.longitude;
+                var accuracy = position.coords.accuracy;
 
 
             // Create a marker to represent the user's location
@@ -200,9 +205,9 @@ function fincaSeleccionada(NumeroParcela)
                 position: { lat: latitudg, lng: longitudg },
                 icon: icono,
                 map: map,
-                title: 'Mi ubicación actual' // Marker label
+                title: 'Mi ubicación actual' + latitudg// Marker label
             });
-        });
+        },function errorees(error){},{ enableHighAccuracy:true});
         
 
 
