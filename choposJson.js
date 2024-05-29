@@ -1,6 +1,19 @@
 
             fincas = [
                 {
+                    "id": "0",
+                    "descripcion": "La Calabaza",
+                    "poligono":"538",
+                    "parcela":"6704",
+                    "plantacion": "Tinto temparnillo",
+                    "superficie": "44a",
+                    "cepas":"800",
+                    "edad":"18",
+                    "latitud":"41.67913834361563",
+                    "longitud":"-3.5817146301269",
+                    "recinto":"new google.maps.LatLng(41.67765188586432, -3.5826855897903442),new google.maps.LatLng(41.6791423501939, -3.581693172454834),new google.maps.LatLng(41.679154369927204, -3.5819238424301147),new google.maps.LatLng(41.6777400325646, -3.582921624183655)"
+                },
+                {
                     "id": "1",
                     "descripcion": "La Presa",
                     "poligono":"529",
@@ -210,7 +223,73 @@
                     "latitud":"41.6905123660",
                     "longitud":"-3.5751508127",
                     "recinto":"new google.maps.LatLng(41.6905123660, -3.5751508127) ,new google.maps.LatLng(41.6906841229, -3.5748352958)  ,new google.maps.LatLng(41.6914251257,-3.5747629898) ,new google.maps.LatLng(41.6911061520,-3.5750193473),new google.maps.LatLng(41.6907675475,-3.5751442395),new google.maps.LatLng(41.6905123660,-3.5751508127) "
-                            }
+                            },
+                {
+                    "id": "17",
+                    "descripcion": "Pinos La Tejera 1",
+                    "poligono":"534",
+                    "parcela":"6340",
+                    "plantacion": "Monte",
+                    "superficie": "88ca",
+                    "cepas":"-----",
+                    "edad":"---",                     
+                    "latitud":"41.6876725733",
+                    "longitud":"-3.5813878750",
+                    "recinto":"new google.maps.LatLng(41.6876725733, -3.5813878750) ,new google.maps.LatLng(41.6879842416, -3.5808471305)  ,new google.maps.LatLng(41.6881408827, -3.5810807321) ,new google.maps.LatLng(41.6876725733, -3.5813878750)  "
+                            },
+                {
+                    "id": "18",
+                    "descripcion": "Pinos La Tejera 2",
+                    "poligono":"534",
+                    "parcela":"6337",
+                    "plantacion": "Monte",
+                    "superficie": "88ca",
+                    "cepas":"-----",
+                    "edad":"---",                     
+                    "latitud":"41.6881408827",
+                    "longitud":"-3.5810807321",
+                    "recinto":"new google.maps.LatLng(41.6881408827, -3.5810807321) ,new google.maps.LatLng(41.6884073330, -3.5810050270)  ,new google.maps.LatLng(41.6884816159, -3.5812516074) ,new google.maps.LatLng(41.6886947752, -3.5812364665),new google.maps.LatLng(41.6887222274, -3.5815111648),new google.maps.LatLng(41.6883637321, -3.5816214767) ,new google.maps.LatLng(41.6881408827, -3.5810807321) "
+                            },
+                {
+                    "id": "19",
+                    "descripcion": "El Hoyo",
+                    "poligono":"527",
+                    "parcela":"26399",
+                    "plantacion": "Chopos",
+                    "superficie": "88ca",
+                    "cepas":"-----",
+                    "edad":"---",                     
+                    "latitud":"41.6961671525",
+                    "longitud":"-3.5883790095",
+                    "recinto":"new google.maps.LatLng(41.6961671525, -3.5883790095) ,new google.maps.LatLng(41.6962272886, -3.5883885997)  ,new google.maps.LatLng(41.6962874426, -3.5883751734) ,new google.maps.LatLng(41.6964764232, -3.5880663679),new google.maps.LatLng(41.6965222410, -3.5880280069),new google.maps.LatLng(41.6965752177, -3.5880280069) ,new google.maps.LatLng(41.6963507354, -3.5885238992) ,new google.maps.LatLng(41.6961671525, -3.5883790095)  "
+                },
+                {
+                    "id": "20",
+                    "descripcion": "Picon Cooperatica",
+                    "poligono":"519",
+                    "parcela":"6821",
+                    "plantacion": "Chopos",
+                    "superficie": " ",
+                    "cepas":" ",
+                    "edad":" ",
+                    "latitud":"41.7028633367",
+                    "longitud":"-3.5801836725",
+                    "recinto":"new google.maps.LatLng(41.7028633367, -3.5801836725),new google.maps.LatLng(41.7033680857, -3.5808373631),new google.maps.LatLng(41.7029586785, -3.5810665305),new google.maps.LatLng(41.7029025951, -3.5807941594),new google.maps.LatLng(41.7028633367, -3.5801836725)"
+                }, 
+                {
+                        "id": "21",
+                        "descripcion": "Pilar Cooperativa",
+                        "poligono":"519",
+                        "parcela":"537",
+                        "plantacion": "Chopos",
+                        "superficie": "88ca",
+                        "cepas":"-----",
+                        "edad":"---",                     
+                        "latitud":"41.7041212990",
+                        "longitud":"-3.5819949903",
+                        "recinto":"new google.maps.LatLng(41.7041212990, -3.5819949903) ,new google.maps.LatLng(41.7043547953, -3.5819512614)  ,new google.maps.LatLng(41.7045531409, -3.5819008051) ,new google.maps.LatLng(41.7046862978, -3.5818503487),new google.maps.LatLng(41.7048694883, -3.5816754334),new google.maps.LatLng(41.7050427255, -3.5821766331) ,new google.maps.LatLng(41.7042920275, -3.5825971027) ,new google.maps.LatLng(41.7041212990, -3.5819949903)  "
+                    },
+
 
   ];
  
