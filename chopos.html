@@ -19,7 +19,9 @@
   </script>
 </head>
 <body>
-    <div style="margin:5px;" >  
+ 
+  <div id="map" style="width: 100%;height:700px;background-color: bisque;"></div>
+  <div style="margin:5px;width: 100%;height:auto;" >  
         
         <b style="margin-left:20px;">Fincas</b>
         <select  id="cajaFincas" style="margin-left:50px;font-size: 24px;height: 30px;width: auto;" onchange="fincaSeleccionada(this.options[this.selectedIndex].value);">
@@ -27,11 +29,10 @@
         </select>
         <b>Latitud:</b><input type="text" id="cajaLatitud"></input>
         <b>Longitud:</b><input type="text" id="cajaLongitud"></input>
-        <input type="button" id="ccomoLLegar" value="Camino" onclick="ComoLLegar()"></input>
-        <input type="button" id="DibujaPosicion" value="Posicion" onclick="dibujaPosicion()"></input>
-    </div>
-  <div id="map" style="width: 100%;height: 800px;background-color: bisque;"></div>
-  
+      <p></p>
+        <input type="button" id="ccomoLLegar"  style="margin-left:10%; font-size: 24px;border-radius: 20%;background-color: blue;color:white"  value="Camino" onclick="ComoLLegar()"></input>
+        <input type="button" id="DibujaPosicion" style="margin-left:15%; font-size: 24px;border-radius: 15%;background-color: rgb(105, 10, 10);color:white"  value="Posicion" onclick="dibujaPosicion()"></input>
+  </div>
   <script>
 /// Cargar datos fincas
 /*
@@ -165,12 +166,10 @@ CartgarDatosFincas()
             //}
 
 
-
-
-        var latitud = 41.7285047310
-        var longitud =-3.5601366553
-          latitud = 41.6904937015;
-             longitud = -3.5751611048;
+          
+        var latitud =  41.699814
+        var longitud =-3.574915
+      
         let map;
 
             async function initMap() {
@@ -178,7 +177,9 @@ CartgarDatosFincas()
 
             map = new Map(document.getElementById("map"), {
                 center: { lat: latitud, lng: longitud},
-                zoom: 8,
+                zoom: 16,
+                mapTypeId: 'satellite'
+                
             });
 
             const marker = new google.maps.Marker({
@@ -277,7 +278,7 @@ CartgarDatosFincas()
   // Create the request object
   milat=eval(cajaLatitud.value);
   miLon=eval(cajaLongitud.value) ;
-  41.699814, -3.574915
+
 
 
   const request = {
