@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>My Location on Google Maps</title>
+  <title>Localizador de Fincas</title>
   <style>
     SELECT {   
    font-size: 16pt;   
@@ -19,14 +19,18 @@
   </script>
 </head>
 <body>
-    <div >  
-        Viticultor <fecha style="margin-left:200px; "></fecha>
-        <b style="margin-left:200px;">Fincas</b>
-        <select  id="cajaFincas" style="margin-left:50px;font-size: 24px;height: 30px;width: auto;" onclick="fincaSeleccionada(this.options[this.selectedIndex].value);">
+    <div style="margin:5px;" >  
+        
+        <b style="margin-left:20px;">Fincas</b>
+        <select  id="cajaFincas" style="margin-left:50px;font-size: 24px;height: 30px;width: auto;" onchange="fincaSeleccionada(this.options[this.selectedIndex].value);">
             <option value="">Selecciona Finca</option>
         </select>
+        <b>Latitud:</b><input type="text" id="cajaLatitud"></input>
+        <b>Longitud:</b><input type="text" id="cajaLongitud"></input>
+        <input type="button" id="ccomoLLegar" value="Camino" onclick="ComoLLegar()"></input>
+        <input type="button" id="DibujaPosicion" value="Posicion" onclick="dibujaPosicion()"></input>
     </div>
-  <div id="map" style="width: 100%;height: 700px;background-color: bisque;"></div>></div> 
+  <div id="map" style="width: 100%;height: 800px;background-color: bisque;"></div>
   
   <script>
 /// Cargar datos fincas
@@ -59,7 +63,7 @@ function CartgarDatosFincas()
 }
 CartgarDatosFincas()
 //// Visualizar finca selecciomnada 
-function fincaSeleccionada(NumeroParcela)
+/*function fincaSeleccionada(NumeroParcela)
             {
                 alert(NumeroParcela)
                // alert(parcelaS+"--");
@@ -67,6 +71,7 @@ function fincaSeleccionada(NumeroParcela)
                 //       angular.forEach( fincas, function  (parcela) {
                  
                     parcela=fincas[NumeroParcela];
+                  
                     //if(parcela.descripcion==parcelaS){
                     //    icon = new google.maps.MarkerImage("chopo2.png",new google.maps.Size(20, 25), new google.maps.Point(0, 0),new google.maps.Point(16, 32));
                         map.setCenter(new google.maps.LatLng(parcela.latitud,parcela.longitud));
@@ -76,9 +81,9 @@ function fincaSeleccionada(NumeroParcela)
                         trazadorecintofinca(parcela,"cyan");
                     //}
                      
-                    
+                
                  
-            }
+            }*/    
  function trazadorecintofinca(parcela,color)
             {
                 var myLatlng = new google.maps.LatLng( parcela.latitud,parcela.longitud);
@@ -140,11 +145,13 @@ function fincaSeleccionada(NumeroParcela)
             }
             function fincaSeleccionada(parcelaS)
             {
-               // alert(parcelaS+"--");
+                // alert(parcelaS+"--");
                 var infoWindow = new google.maps.InfoWindow();
                 //       angular.forEach( fincas, function  (parcela) {
                // for(i=0;i<=f;i++){
                     parcela=fincas[parcelaS];
+                    cajaLatitud.value=parcela.latitud
+                    cajaLongitud.value=parcela.longitud
                    // if(parcela.descripcion==parcelaS){
                         icon = new google.maps.MarkerImage("chopo2.png",new google.maps.Size(20, 25), new google.maps.Point(0, 0),new google.maps.Point(16, 32));
                         map.setCenter(new google.maps.LatLng(parcela.latitud,parcela.longitud));
@@ -213,21 +220,110 @@ function fincaSeleccionada(NumeroParcela)
 
             });
 
-
+         //   ComoLLegar()   
 
             }
 
-            initMap();
+         
+      function dibujaPosicion()
+      {
+        let tzoom = 16;
+                
+                  
+                icono = {
+                        url: "bandera.png", // url
+                        scaledSize: new google.maps.Size(tzoom, tzoom), // scaled size
+                        origin: new google.maps.Point(0, 0), // origin
+                        anchor: new google.maps.Point(0, 0) // anchor
+                        };      
+    
+                const options = {
+                            enableHighAccuracy: true 
+                        };  
+                navigator.geolocation.getCurrentPosition(function(position) {
+                let latitudg = position.coords.latitude;
+                let longitudg= position.coords.longitude;
+                var accuracy = position.coords.accuracy;
+                map.setCenter(new google.maps.LatLng(latitudg,longitudg));
 
+            // Create a marker to represent the user's location
+                const marker = new google.maps.Marker({
+                position: { lat: latitudg, lng: longitudg },
+                icon: icono,
+                map: map,
+                title: 'Mi ubicación actual' + latitudg// Marker label
+            });
+        },function errorees(error){},{maximumAge:60000, timeout:20000, enableHighAccuracy:true});
+        
+      }
       
         // Get the user's current location
 
-      
-     
-       
-         
+      function ComoLLegar(){
 
-        
+       // const map = new google.maps.Map(document.getElementById('map'), {
+    //center: { lat: 41.67913834361563, lng: -3.5817146301269 },
+  //  zoom: 15
+ // });
+
+  // Create the directions service
+  const directionsService = new google.maps.DirectionsService();
+
+  // Create the directions renderer
+  const directionsRenderer = new google.maps.DirectionsRenderer({
+    map: map
+  });
+
+  // Create the request object
+  milat=eval(cajaLatitud.value);
+  miLon=eval(cajaLongitud.value) ;
+  41.699814, -3.574915
+
+
+  const request = {
+    origin: { lat: 41.699814, lng: -3.574915 }, //latitud, longitud QUEMADA
+    destination: { lat: milat, lng: miLon  },
+    travelMode: google.maps.TravelMode.DRIVING
+  };
+
+  // Route the directions
+  directionsService.route(request, function(response, status) {
+    if (status === google.maps.DirectionsStatus.OK) {
+      // Directions successful, render the route
+      directionsRenderer.setDirections(response);
+    } else {
+      // Directions failed, handle error
+      console.error('Directions request failed due to ' + status);
+    }
+  });
+      }
+     
+        function ComoLLegar2()
+        {
+          
+            const map = new google.maps.Map(document.getElementById('map'), {
+    center: { lat: 41.67913834361563, lng: -3.5817146301269 },
+    zoom: 15
+  });
+
+  // Create the line object
+  const line = new google.maps.Polyline({
+    path: [
+      { lat: 41.67913834361563, lng: -3.5817146301269 }, // Start point
+      { lat: 41.7285100269, lng: -3.5601320435 } // End point
+    ],
+    strokeOpacity: 1,
+    strokeColor: '#ff0000', // Red color
+    strokeWeight: 5
+  });
+
+  // Add the line to the map
+  line.setMap(map);
+            }
+ 
+         
+            initMap();
+         
   </script>
 </body>
 </html>
