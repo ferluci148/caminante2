@@ -32,6 +32,8 @@
       <p></p>
         <input type="button" id="ccomoLLegar"  style="margin-left:10%; font-size: 24px;border-radius: 20%;background-color: blue;color:white"  value="Camino" onclick="ComoLLegar()"></input>
         <input type="button" id="DibujaPosicion" style="margin-left:15%; font-size: 24px;border-radius: 15%;background-color: rgb(105, 10, 10);color:white"  value="Posicion" onclick="dibujaPosicion()"></input>
+        <input type="button" id="ccomoLLegarpunto"  style="margin-left:10%; font-size: 24px;border-radius: 20%;background-color: rgba(7, 247, 19, 0.856);color:white"  value=".-.-.-.-." onclick="ComoLLegarPunto()"></input>
+       
   </div>
   <script>
 /// Cargar datos fincas
@@ -50,6 +52,11 @@
                     "recinto":"new google.maps.LatLng(41.67765188586432, -3.5826855897903442),new google.maps.LatLng(41.6791423501939, -3.581693172454834),new google.maps.LatLng(41.679154369927204, -3.5819238424301147),new google.maps.LatLng(41.6777400325646, -3.582921624183655)"
                 },
 */
+
+let latitudPosicionClick=0
+      
+let longituPosicionClick =0
+
 numeroFincas=0;
 function CartgarDatosFincas()
 {
@@ -225,7 +232,7 @@ CartgarDatosFincas()
 
             }
 
-         
+     
       function dibujaPosicion()
       {
         let tzoom = 16;
@@ -245,6 +252,9 @@ CartgarDatosFincas()
                 let latitudg = position.coords.latitude;
                 let longitudg= position.coords.longitude;
                 var accuracy = position.coords.accuracy;
+
+                latitudPosicionClick=latitudg      
+                longituPosicionClick=longitudg
                 map.setCenter(new google.maps.LatLng(latitudg,longitudg));
 
             // Create a marker to represent the user's location
@@ -298,9 +308,49 @@ CartgarDatosFincas()
     }
   });
       }
-     
-        function ComoLLegar2()
-        {
+ 
+function ComoLLegarPunto(){
+
+// const map = new google.maps.Map(document.getElementById('map'), {
+//center: { lat: 41.67913834361563, lng: -3.5817146301269 },
+//  zoom: 15
+// });
+
+// Create the directions service
+const directionsService = new google.maps.DirectionsService();
+
+// Create the directions renderer
+const directionsRenderer = new google.maps.DirectionsRenderer({
+map: map
+});
+
+// Create the request object
+milat=eval(cajaLatitud.value);
+miLon=eval(cajaLongitud.value) ;
+ 
+
+const request = {
+origin: { lat: latitudPosicionClick, lng:longituPosicionClick }, //latitud, longitud de la posicion creada en el mapa
+destination: { lat: milat, lng: miLon  },
+travelMode: google.maps.TravelMode.DRIVING
+};
+
+// Route the directions
+directionsService.route(request, function(response, status) {
+if (status === google.maps.DirectionsStatus.OK) {
+// Directions successful, render the route
+directionsRenderer.setDirections(response);
+} else {
+// Directions failed, handle error
+console.error('Directions request failed due to ' + status);
+}
+});
+}
+
+
+
+function ComoLLegar2()
+  {
           
             const map = new google.maps.Map(document.getElementById('map'), {
     center: { lat: 41.67913834361563, lng: -3.5817146301269 },
