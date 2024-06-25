@@ -332,16 +332,16 @@
                 }  ,
                 {
                     "id": "25",
-                    "descripcion": "El Campo 6842",
+                    "descripcion": "El Campo 6862",
                     "poligono":"519",
-                    "parcela":"6842",
+                    "parcela":"6862",
                     "plantacion": "Chopos",
-                    "superficie": "88ca",
+                    "superficie": "39ca",
                     "cepas":"-----",
                     "edad":"---",                     
-                    "latitud":"",
-                    "longitud":"-",
-                    "recinto":"new google.maps.LatLng(, -) ,new google.maps.LatLng(, -)  ,new google.maps.LatLng(, -) ,new google.maps.LatLng(, -),new google.maps.LatLng(, -),new google.maps.LatLng(, -) ,new google.maps.LatLng(, -) ,new google.maps.LatLng(, -)  "
+                    "latitud":"41.7032235063",
+                    "longitud":"-3.5846965308",
+                    "recinto":"new google.maps.LatLng(41.7032235063, -3.5846965308) ,new google.maps.LatLng(41.7031770346, -3.5843390709)  ,new google.maps.LatLng(41.7032751415, -3.5842975594) ,new google.maps.LatLng(41.7033112861, -3.5844290124),new google.maps.LatLng(41.7033439883, -3.5846411822) ,new google.maps.LatLng(41.7032235063, -3.5846965308) "
                 },
 
 
