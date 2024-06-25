@@ -107,33 +107,7 @@
                     "longitud":"-3.606905937194824",
                     "recinto":"new google.maps.LatLng(41.6896988176328, -3.606905937194824),new google.maps.LatLng(41.68970682947404, -3.6067771911621094),new google.maps.LatLng(41.688569138033216, -3.6066484451293945),new google.maps.LatLng(41.68853709009564, -3.6067771911621094),new google.maps.LatLng(41.6896988176328, -3.606905937194824)"
                 } ,
-                {
-                    "id":"8",
-                    "descripcion": "Lo Malo J.Antonio",
-                     "poligono":"532",
-                    "parcela":"1105/1104",
-                    "plantacion": "Chopos",
-                    "superficie": "1h 85 a",
-                    "cepas":"--",
-                    "edad":"--",
-                    "latitud":"41.690924617735384",
-                    "longitud":" -3.5998141765594482",
-                    "recinto":"new google.maps.LatLng(41.690924617735384, -3.5998141765594482),new google.maps.LatLng(41.69113292131326, -3.5989129543304443),new google.maps.LatLng(41.688881604587955, -3.5989880561828613),new google.maps.LatLng(41.68896172397291, -3.599867820739746),new google.maps.LatLng(41.690924617735384, -3.5998141765594482)"
-                } ,
-                {
-                    "id":"9",
-                    "descripcion": "Cayetano",
-                     "poligono":"--",
-                    "parcela":"--",
-                    "plantacion": "Chopos",
-                    "superficie": "95a",
-                    "cepas":"--",
-                    "edad":"-",
-                    "latitud":"41.69081245399098",
-                    "longitud":"-3.583195209503174",
-                    "recinto":"new google.maps.LatLng(41.69081245399098, -3.583195209503174),new google.maps.LatLng(41.69090859435529, -3.5825729370117188),new google.maps.LatLng(41.688985759768954, -3.582444190979004),new google.maps.LatLng(41.68880949705617, -3.5830235481262207),new google.maps.LatLng(41.69081245399098, -3.583195209503174)"
-                } ,
-                {
+                            {
                     "id":"10",
                     "descripcion": "Bajamontero",
                     "poligono":"503",
