@@ -2,210 +2,223 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        html, body, #map{
-          height: 100%;
-          margin: 0px;
-          padding: 0px
-        }
-        #panel {
-          position: absolute;
-          top: 5px;
-          left: 50%;
-          margin-left: -180px;
-          z-index: 5;
-          background-color: #fff;
-          padding: 5px;
-          border: 1px solid #999;
-        }
-      </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    html,
+    body,
+    #map {
+      height: 100%;
+      margin: 0px;
+      padding: 0px
+    }
 
-    <script>
-        (g => { var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => { await (a = m.createElement("script")); e.set("libraries", [...r] + ""); for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]); e.set("callback", c + ".maps." + q); a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f; a.onerror = () => h = n(Error(p + " could not load.")); a.nonce = m.querySelector("script[nonce]")?.nonce || ""; m.head.append(a) })); d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)) })({
-            key: "AIzaSyA_5nn8cCIMvXkDoOXa4e68JhT9tDfvTlM",
+    #panel {
+      position: absolute;
+      top: 5px;
+      left: 50%;
+      margin-left: -180px;
+      z-index: 5;
+      background-color: #fff;
+      padding: 5px;
+      border: 1px solid #999;
+    }
+  </style>
 
-            v: "weekly",
-            // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
-            // Add other bootstrap parameters as needed, using camel case.
-        });
-    </script>
+  <script>
+    (g => { var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => { await (a = m.createElement("script")); e.set("libraries", [...r] + ""); for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]); e.set("callback", c + ".maps." + q); a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f; a.onerror = () => h = n(Error(p + " could not load.")); a.nonce = m.querySelector("script[nonce]")?.nonce || ""; m.head.append(a) })); d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)) })({
+      key: "AIzaSyA_5nn8cCIMvXkDoOXa4e68JhT9tDfvTlM",
+
+      v: "weekly",
+      // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
+      // Add other bootstrap parameters as needed, using camel case.
+    });
+  </script>
 </head>
 
 <body>
 
-    <div id="map" style="float:left;width:70%;height:100%;"></div>
-    <div id="control_panel" style="float:right;width:30%;text-align:left;padding-top:20px">
-        <div id="paneldesplazamiento">
-         <b>Medio de transporte: </b>
-         <select id="modoDespazamiento" onchange="calcRoute();"> 
-           <option value="DRIVING">Coche</option>
-           <option value="WALKING">Caminar</option>
-           <option value="BICYCLING">Bicicleta </option>
-           <option value="TRANSIT">Público</option>
-         </select>
-         </div>
-         <div style="margin:20px;border-width:2px;">
-         <b>Origen:</b>
-         <select id="start" onchange="calcRoute()";>
-           <option value="Quemada,Burgos,España">Quemada</option>
-           <option value="Zazuar,Burgos,España">Zazuar</option>
-           <option value="San Juan del Monte,Burgos,España">San Juan del Monte</option>
-           <option value="Peñaranda,Burgos,España">Peñaranda</option>
-            <option value="Avenida Juan Carlos 1 75 ,Valladoli,España">75</option>
-         </select>
-         <br>
-         <b>Puntos Intermedios:</b> <br>
-         <i>(Ctrl-Click para seleción Múltiple)</i> <br>
-         <select multiple id="waypoints">
-           <option value="Quemada,Burgos,España">Quemada</option>
-           <option value="Zazuar,Burgos,España">Zazuar</option>
-           <option value="San Juan del Monte,Burgos,España">San Juan del Monte</option>
-           <option value="Peñaranda,Burgos,España">Peñaranda</option>
-         <option value="Calle Montelatorre 11,Aranda de Duero,Burgos,España">Calle Montelatorre 11,Aranda de Duero</option>
-           <option value="Fuentespina,Burgos,España">Fuentespina</option>
-           <option value="Milagros,Burgos,España">Milagros</option>
-           <option value="Roa de Duero,Burgos,España">Roa de Duero</option>
-                  <option value="Avenida Juan Carlos 1 75 ,Valladoli,España">75</option>
-                 
-                  <option value=" Pso. Juan Carlos I S/N - Valladolid 47012">otro</option>
-                          <option value="Avenida Juan Carlos I, 16,Valladolid,España">sn</option>
-         </select>
-         <br>
-         <b>Destino:</b>
-         <select id="end"  onchange="calcRoute();"">
-            <option value="Quemada,Burgos,España">Quemada</option>
-           <option value="Zazuar,Burgos,España">Zazuar</option>
-           <option value="San Juan del Monte,Burgos,España">San Juan del Monte</option>
-           <option value="Peñaranda,Burgos,España">Peñaranda</option>
-         <option value="Milagros,Burgos,España">Milagros</option>
-         </select>
-         </select>
-         <br>
-           <input type="submit" onclick="calcRoute();">
-         </div>
-         <div id="directions_panel" style="margin:20px;background-color:#FFEE77;"></div>
-         </div>
-         <div id="map-canvas2"></div>
+  <div id="map" style="float:left;width:70%;height:100%;"></div>
+  <div id="control_panel" style="float:right;width:30%;text-align:left;padding-top:20px">
+    <div id="paneldesplazamiento">
+      <b>Medio de transporte: </b>
+      <select id="modoDespazamiento" onchange="calcRoute();">
+        <option value="DRIVING">Coche</option>
+        <option value="WALKING">Caminar</option>
+        <option value="BICYCLING">Bicicleta </option>
+        <option value="TRANSIT">Público</option>
+      </select>
+    </div>
+    <div style="margin:20px;border-width:2px;">
+      <b>Origen:</b>
+      <select id="start" onchange="calcRoute()" ;>
+        <option value="Quemada,Burgos,España">Quemada</option>
+        <option value="Zazuar,Burgos,España">Zazuar</option>
+        <option value="San Juan del Monte,Burgos,España">San Juan del Monte</option>
+        <option value="Peñaranda,Burgos,España">Peñaranda</option>
+        <option value="Avenida Juan Carlos 1 75 ,Valladoli,España">75</option>
+      </select>
+      <br>
+      <b>Puntos Intermedios:</b> <br>
+      <i>(Ctrl-Click para seleción Múltiple)</i> <br>
+      <select multiple id="waypoints" style="height: 300px;">
+        <option value="Quemada,Burgos,España">Quemada</option>
+        <option value="Zazuar,Burgos,España">Zazuar</option>
+        <option value="San Juan del Monte,Burgos,España">San Juan del Monte</option>
+        <option value="Peñaranda,Burgos,España">Peñaranda</option>
+        <option value="Calle Montelatorre 11,Aranda de Duero,Burgos,España">Calle Montelatorre 11,Aranda de Duero
+        </option>
+        <option value="Fuentespina,Burgos,España">Fuentespina</option>
+        <option value="Milagros,Burgos,España">Milagros</option>
+        <option value="Roa de Duero,Burgos,España">Roa de Duero</option>
+        <option value="Avenida Juan Carlos 1 75 ,Valladolid,España">Avenida Juan Carlos 1 75 ,Valladolid</option>
+
+        <option value="Pso. Juan Carlos I S/N - Valladolid 47012">Pso. Juan Carlos I S/N - Valladolid</option>
+        <option value="Avenida Juan Carlos I, 16,Valladolid,España">Avenida Juan Carlos I, 16,Valladolid</option>
+        <option value="Sepulveda,Segovia,España">Sepulveda</option>
+        
+        <option value="Riaza,Segovia,España">Riaza</option>
+        <option value="Alcala de Henares,Madrid,España">Alcala de Henares</option>
+        <option value="Getafe,Madrid,España">Getafe</option>
+        <option value="Cadalso de los Vidrios,Madrid,España">Cadalso</option>
+        <option value="Leganes,Madrid,España">Leganes</option>
+
+      </select>
+      <br>
+      <b>Destino:</b>
+      <select id="end" onchange="calcRoute();"">
+            <option value=" Quemada,Burgos,España">Quemada</option>
+        <option value="Zazuar,Burgos,España">Zazuar</option>
+        <option value="San Juan del Monte,Burgos,España">San Juan del Monte</option>
+        <option value="Peñaranda,Burgos,España">Peñaranda</option>
+        <option value="Milagros,Burgos,España">Milagros</option>
+      </select>
+      </select>
+      <br>
+      <input type="submit" onclick="calcRoute();">
+    </div>
+    <div id="directions_panel" style="margin:20px;background-color:#FFEE77;"></div>
+  </div>
+  <div id="map-canvas2"></div>
 
 
 
 
-    <script>
-        var latitud = 41.699814
-        var longitud = -3.574915
-        let map;
-        async function initMap() {
-            const { Map } = await google.maps.importLibrary("maps");
+  <script>
+    var latitud = 41.699814
+    var longitud = -3.574915
+    let map;
+    async function initMap() {
+      const { Map } = await google.maps.importLibrary("maps");
 
-            map = new Map(document.getElementById("map"), {
-                center: { lat: latitud, lng: longitud },
-                zoom: 16,
-                mapTypeId: 'satellite'
+      map = new Map(document.getElementById("map"), {
+        center: { lat: latitud, lng: longitud },
+        zoom: 16,
+        mapTypeId: 'satellite'
 
-            });
-       
-            const marker = new google.maps.Marker({
-                position: { lat: latitud, lng: longitud },
-                map: map,
-                title: 'Mi ubicación actual' // Marker label
-            });
+      });
 
-            directionsDisplay = new google.maps.DirectionsRenderer();
-            directionsDisplay.setMap(map);
+      const marker = new google.maps.Marker({
+        position: { lat: latitud, lng: longitud },
+        map: map,
+        title: 'Mi ubicación actual' // Marker label
+      });
+
+      directionsDisplay = new google.maps.DirectionsRenderer();
+      directionsDisplay.setMap(map);
+    }
+
+    function ComoLLegar() {
+      // const map = new google.maps.Map(document.getElementById('map'), {
+      //center: { lat: 41.67913834361563, lng: -3.5817146301269 },
+      //  zoom: 15
+      // });
+      // Create the directions service
+      const directionsService = new google.maps.DirectionsService();
+      // Create the directions renderer
+      const directionsRenderer = new google.maps.DirectionsRenderer({
+        map: map
+      });
+      // Create the request object
+      milat = eval(cajaLatitud.value);
+      miLon = eval(cajaLongitud.value);
+      const request = {
+        origin: { lat: 41.699814, lng: -3.574915 }, //latitud, longitud QUEMADA
+        destination: { lat: milat, lng: miLon },
+        travelMode: google.maps.TravelMode.DRIVING
+      };
+      // Route the directions
+      directionsService.route(request, function (response, status) {
+        if (status === google.maps.DirectionsStatus.OK) {
+          // Directions successful, render the route
+          directionsRenderer.setDirections(response);
+        } else {
+          // Directions failed, handle error
+          console.error('Directions request failed due to ' + status);
         }
-
-function ComoLLegar(){
-     // const map = new google.maps.Map(document.getElementById('map'), {
-  //center: { lat: 41.67913834361563, lng: -3.5817146301269 },
-//  zoom: 15
-// });
-// Create the directions service
-const directionsService = new google.maps.DirectionsService();
-// Create the directions renderer
-const directionsRenderer = new google.maps.DirectionsRenderer({
-  map: map
-});
-// Create the request object
-milat=eval(cajaLatitud.value);
-miLon=eval(cajaLongitud.value) ;
-const request = {
-  origin: { lat: 41.699814, lng: -3.574915 }, //latitud, longitud QUEMADA
-  destination: { lat: milat, lng: miLon  },
-  travelMode: google.maps.TravelMode.DRIVING
-};
-// Route the directions
-directionsService.route(request, function(response, status) {
-  if (status === google.maps.DirectionsStatus.OK) {
-    // Directions successful, render the route
-    directionsRenderer.setDirections(response);
-  } else {
-    // Directions failed, handle error
-    console.error('Directions request failed due to ' + status);
-  }
-});
+      });
     }
     function calcRoute() {
-// Modo de desplazamiento
-const directionsService = new google.maps.DirectionsService();
-// Create the directions renderer
-const directionsRenderer = new google.maps.DirectionsRenderer({
-  map: map
-});
-  var selectedMode = document.getElementById('modoDespazamiento').value;
-  
-  var start = document.getElementById('start').value;
-  var end = document.getElementById('end').value;
-  var waypts = [];
-  var checkboxArray = document.getElementById('waypoints');
-  for (var i = 0; i < checkboxArray.length; i++) {
-    if (checkboxArray.options[i].selected == true) {
-      waypts.push({
-          location:checkboxArray[i].value,
-          stopover:true});
-    }
-  }
- /*waypts.push({
-          location:'Fuentespina,Burgos,España',
-          stopover:true});
- waypts.push({
-          location:'Quemada,Burgos,España',
-          stopover:true});		 
-    waypts.push({
-          location:'Fuentespina,Burgos,España',
-          stopover:true}); */
-  var request = {
-      origin: start,
-      destination: end,
-      waypoints: waypts,
-      optimizeWaypoints: true,
-	  travelMode: google.maps.TravelMode[selectedMode]
+      // Modo de desplazamiento
+      const directionsService = new google.maps.DirectionsService();
+      // Create the directions renderer
+      const directionsRenderer = new google.maps.DirectionsRenderer({
+        map: map
+      });
+      var selectedMode = document.getElementById('modoDespazamiento').value;
 
-     // travelMode: google.maps.TravelMode.DRIVING
-  };
-  directionsService.route(request, function(response, status) {
-    if (status == google.maps.DirectionsStatus.OK) {
-      directionsDisplay.setDirections(response);
-      var route = response.routes[0];
-      var summaryPanel = document.getElementById('directions_panel');
-      summaryPanel.innerHTML = '';
-      // For each route, display summary information.
-      for (var i = 0; i < route.legs.length; i++) {
-        var routeSegment = i + 1;
-        summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment + '</b><br>';
-        summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
-        summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
-        summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
+      var start = document.getElementById('start').value;
+      var end = document.getElementById('end').value;
+      var waypts = [];
+      var checkboxArray = document.getElementById('waypoints');
+      for (var i = 0; i < checkboxArray.length; i++) {
+        if (checkboxArray.options[i].selected == true) {
+          waypts.push({
+            location: checkboxArray[i].value,
+            stopover: true
+          });
+        }
       }
-    }
-  });
-}
+      /*waypts.push({
+               location:'Fuentespina,Burgos,España',
+               stopover:true});
+      waypts.push({
+               location:'Quemada,Burgos,España',
+               stopover:true});		 
+         waypts.push({
+               location:'Fuentespina,Burgos,España',
+               stopover:true}); */
+      var request = {
+        origin: start,
+        destination: end,
+        waypoints: waypts,
+        optimizeWaypoints: true,
+        travelMode: google.maps.TravelMode[selectedMode]
 
-        
-        initMap();
-    </script>
+        // travelMode: google.maps.TravelMode.DRIVING
+      };
+      directionsService.route(request, function (response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+          directionsDisplay.setDirections(response);
+          var route = response.routes[0];
+          var summaryPanel = document.getElementById('directions_panel');
+          summaryPanel.innerHTML = '';
+          // For each route, display summary information.
+          for (var i = 0; i < route.legs.length; i++) {
+            var routeSegment = i + 1;
+            summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment + '</b><br>';
+            summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
+            summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
+            summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
+          }
+        }
+      });
+    }
+
+
+    initMap();
+  </script>
 </body>
 
 </html>
